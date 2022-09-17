@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-bottom: 3rem;
 }
 
 .App-logo {
@@ -13,19 +14,27 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.heading {
+  color: #2e7d32;
+  font-family: cursive;
 }
 
-.App-link {
-  color: #61dafb;
+.notes-card-div {
+  display: flex;
+  width: 90vw;
+  height: fit-content;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.existing-note-back-cover {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #000000b0;
+  z-index: 2;
 }
 
 @keyframes App-logo-spin {

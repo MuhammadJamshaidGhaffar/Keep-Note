@@ -1,0 +1,23 @@
+.div {
+  border: 1px solid #b9b9b9;
+  position: relative;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+.div:hover {
+  box-shadow: 0px 0px 7px grey;
+  border: none;
+}
+.cardDiv {
+  /* border: 2px solid red; */
+  overflow-wrap: break-word;
+  width: 13rem;
+  height: 15rem;
+  overflow: hidden;
+}
+.crossBtn {
+  /* z-index: 2; */
+  position: absolute;
+  right: 0;
+  top: 0;
+}
