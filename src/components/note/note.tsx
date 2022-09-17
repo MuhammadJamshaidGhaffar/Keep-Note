@@ -5,7 +5,9 @@ import {
   addNotes,
   setActiveNoteId,
   setIsNoteExisting,
+  setNewNote,
   setNoteSwitch,
+  setSyncing,
 } from "../../store/reducer";
 import { note } from "../../types/note";
 import { baseUrl } from "../../utility/globalConstants";
@@ -19,11 +21,13 @@ const Note: React.FC<Required<note>> = ({ id, text, title }) => {
       <div
         className={styles.crossBtn}
         onClick={async () => {
+          dispatch(setSyncing(true));
           console.log("Cross clciked of id ", id);
           const notes: Required<note>[] = await (
             await fetch(`${baseUrl}/notes/delete/${id}`)
           ).json();
           dispatch(addNotes(notes));
+          dispatch(setSyncing(false));
         }}
       >
         <IconButton aria-label="delete" size="small" color="success">
@@ -37,9 +41,10 @@ const Note: React.FC<Required<note>> = ({ id, text, title }) => {
           dispatch(setActiveNoteId(id));
           dispatch(setNoteSwitch(true));
           dispatch(setIsNoteExisting(true));
+          dispatch(setNewNote(false));
         }}
       >
-        <p>{id}</p>
+        {/* <p>{id}</p> */}
         <p>{title}</p>
         {text.split("\n").map((line, index) => (
           <p key={index}>{line}</p>

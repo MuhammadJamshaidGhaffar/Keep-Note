@@ -1,4 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
+import CloudIcon from "@mui/icons-material/Cloud";
+import DoneIcon from "@mui/icons-material/Done";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import noteEdiotrStyles from "./components/NoteEditor/style.module.css";
@@ -6,7 +8,15 @@ import noteEdiotrStyles from "./components/NoteEditor/style.module.css";
 import "./App.css";
 import Note from "./components/note/note";
 import NewNote from "./components/NewNote/NewNote";
-import { addNotes, setActiveNoteId, setIsNoteExisting } from "./store/reducer";
+import {
+  addNotes,
+  setActiveNoteId,
+  setIsNoteExisting,
+  setNewNote,
+  setSyncing,
+  setText,
+  setTitle,
+} from "./store/reducer";
 import { note } from "./types/note";
 import { createNewNote } from "./utility/functions";
 import { baseUrl } from "./utility/globalConstants";
@@ -20,6 +30,7 @@ function getRndInteger(min: number, max: number) {
 
 function App() {
   const [isFetching, setFetching] = useState(false);
+  const syncing = useSelector((state: any) => state.otherObj.syncing);
   // const [activeNoteId, setActiveNoteId] = useState("-1");
   const isNoteExisting: boolean = useSelector(
     (state: any) => state.otherObj.isNoteExisting
@@ -28,12 +39,14 @@ function App() {
   useEffect(() => {
     async function fetchNotes() {
       setFetching(true);
+      dispatch(setSyncing(true));
       let notes: Required<note>[] = await (
         await fetch(`${baseUrl}/getallnotes`)
       ).json();
       console.log("inside useffect", notes);
       dispatch(addNotes(notes));
       setFetching(false);
+      dispatch(setSyncing(false));
     }
     fetchNotes();
   }, []);
@@ -46,14 +59,33 @@ function App() {
     console.log("activen note id in seletor is : ", state);
     return state.activeNoteId;
   });
+  const isNewNote = useSelector((state: any) => state.otherObj.isNewNote);
   console.log("Notes are", notes);
   if (isFetching) {
     return <CircularProgress color="success" />;
   }
   return (
     <div className="App">
-      <h1 className="heading">JAMSHAID KEEP</h1>
-      {activeNoteId === "-1" ? (
+      <div className="heading-wrapper">
+        <h1 className="heading">JAMSHAID KEEP</h1>
+        <CloudIcon
+          color="primary"
+          style={{ fontSize: "3rem", marginLeft: "2rem" }}
+        />
+        {syncing ? (
+          <CircularProgress
+            color="success"
+            size="2rem"
+            style={{ marginLeft: "1rem" }}
+          />
+        ) : (
+          <DoneIcon
+            color="success"
+            style={{ fontSize: "2rem", marginLeft: "1rem" }}
+          />
+        )}
+      </div>
+      {isNewNote ? (
         <NewNote />
       ) : (
         <div
@@ -70,6 +102,9 @@ function App() {
             onClick={() => {
               dispatch(setActiveNoteId("-1"));
               dispatch(setIsNoteExisting(false));
+              dispatch(setText(""));
+              dispatch(setTitle(""));
+              dispatch(setNewNote(true));
             }}
           >
             Close

@@ -45,7 +45,13 @@ const noteSwitchSlice = createSlice({
 
 const othersSlice = createSlice({
   name: "Others Object",
-  initialState: { isNoteExisting: false, text: "", title: "" },
+  initialState: {
+    isNoteExisting: false,
+    text: "",
+    title: "",
+    isNewNote: true,
+    syncing: false,
+  },
   reducers: {
     setIsNoteExisting: (state, { payload }: { payload: boolean }) => {
       state.isNoteExisting = payload;
@@ -56,13 +62,20 @@ const othersSlice = createSlice({
     setTitle: (state, { payload }: { payload: string }) => {
       state.title = payload;
     },
+    setNewNote: (state, { payload }) => {
+      state.isNewNote = payload;
+    },
+    setSyncing: (state, { payload }) => {
+      state.syncing = payload;
+    },
   },
 });
 
 export const { addNotes } = notesSlice.actions;
 export const { setActiveNoteId } = idSlice.actions;
 export const { setNoteSwitch } = noteSwitchSlice.actions;
-export const { setIsNoteExisting, setText, setTitle } = othersSlice.actions;
+export const { setIsNoteExisting, setText, setTitle, setNewNote, setSyncing } =
+  othersSlice.actions;
 const notesReducer = notesSlice.reducer;
 const activeNoteId = idSlice.reducer;
 const noteSwitch = noteSwitchSlice.reducer;

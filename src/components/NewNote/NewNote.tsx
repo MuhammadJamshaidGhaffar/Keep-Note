@@ -6,6 +6,9 @@ import {
   addNotes,
   setActiveNoteId,
   setIsNoteExisting,
+  setNewNote,
+  setText,
+  setTitle,
 } from "../../store/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import NoteEditor from "../NoteEditor/NoteEditor";
@@ -26,6 +29,9 @@ function NewNote() {
             onClick={() => {
               setNewNoteBtnClicked(false);
               dispatch(setActiveNoteId("-1"));
+              dispatch(setText(""));
+              dispatch(setTitle(""));
+              dispatch(setNewNote(true));
             }}
           >
             Close

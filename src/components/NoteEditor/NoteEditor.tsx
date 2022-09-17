@@ -13,6 +13,7 @@ import {
   addNotes,
   setActiveNoteId,
   setNoteSwitch,
+  setSyncing,
   setText,
   setTitle,
 } from "../../store/reducer";
@@ -41,10 +42,10 @@ const NoteEditor: React.FC = () => {
       const note: note = await getNote(activeNoteId);
       if (noteTitleRef.current !== null && noteTitleRef !== null)
         // noteTitleRef.current.value = note.title;
-        setTitle(note.title);
+        dispatch(setTitle(note.title));
       if (noteTextRef !== null && noteTextRef.current !== null)
         // noteTextRef.current.value = note.text;
-        setText(note.text);
+        dispatch(setText(note.text));
     }
     if (noteSwitch) {
       getNoteAndUpdateUI();
@@ -53,6 +54,7 @@ const NoteEditor: React.FC = () => {
   });
   async function fetchAndUpdateNote() {
     if (fetchingId) return;
+    dispatch(setSyncing(true));
     if (activeNoteId === "-1") {
       console.log("creating a new note");
       if (!fetchingId)
@@ -78,6 +80,7 @@ const NoteEditor: React.FC = () => {
       );
       dispatch(addNotes(data.notes));
       dispatch(setActiveNoteId(data.id));
+      dispatch(setSyncing(false));
     } catch (error) {
       console.log("Erro herer", error);
     }
