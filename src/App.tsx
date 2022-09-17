@@ -54,29 +54,28 @@ function App() {
 
   const isNewNote = useSelector((state: any) => state.otherObj.isNewNote);
   console.log("Notes are", notes);
-  if (isFetching) {
-    return <CircularProgress color="success" />;
-  }
   return (
     <div className="App">
       <div className="heading-wrapper">
         <h1 className="heading">JAMSHAID KEEP</h1>
-        <CloudIcon
-          color="primary"
-          style={{ fontSize: "3rem", marginLeft: "2rem" }}
-        />
-        {syncing ? (
-          <CircularProgress
-            color="success"
-            size="2rem"
-            style={{ marginLeft: "1rem" }}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <CloudIcon
+            color="primary"
+            style={{ fontSize: "3rem", marginLeft: "2rem" }}
           />
-        ) : (
-          <DoneIcon
-            color="success"
-            style={{ fontSize: "2rem", marginLeft: "1rem" }}
-          />
-        )}
+          {syncing ? (
+            <CircularProgress
+              color="success"
+              size="2rem"
+              style={{ marginLeft: "1rem" }}
+            />
+          ) : (
+            <DoneIcon
+              color="success"
+              style={{ fontSize: "2rem", marginLeft: "1rem" }}
+            />
+          )}
+        </div>
       </div>
       {isNewNote ? (
         <NewNote />
