@@ -21,3 +21,9 @@
   right: 0;
   top: 0;
 }
+.title {
+  font-weight: 600;
+}
+.text {
+  font-weight: 100;
+}

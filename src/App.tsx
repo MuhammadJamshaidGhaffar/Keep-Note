@@ -1,7 +1,7 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import CloudIcon from "@mui/icons-material/Cloud";
 import DoneIcon from "@mui/icons-material/Done";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import noteEdiotrStyles from "./components/NoteEditor/style.module.css";
 
@@ -18,20 +18,16 @@ import {
   setTitle,
 } from "./store/reducer";
 import { note } from "./types/note";
-import { createNewNote } from "./utility/functions";
-import { baseUrl } from "./utility/globalConstants";
-import { TYPE_OF_NOTE } from "./types/note";
-import { Button, TextField, Typography } from "@mui/material";
-import NoteEditor from "./components/NoteEditor/NoteEditor";
 
-function getRndInteger(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { baseUrl } from "./utility/globalConstants";
+
+import { Button } from "@mui/material";
+import NoteEditor from "./components/NoteEditor/NoteEditor";
 
 function App() {
   const [isFetching, setFetching] = useState(false);
   const syncing = useSelector((state: any) => state.otherObj.syncing);
-  // const [activeNoteId, setActiveNoteId] = useState("-1");
+
   const isNoteExisting: boolean = useSelector(
     (state: any) => state.otherObj.isNoteExisting
   );
@@ -55,10 +51,7 @@ function App() {
     console.log("Inside useSelector", state);
     return state.notesReducer;
   });
-  const activeNoteId = useSelector((state: any) => {
-    console.log("activen note id in seletor is : ", state);
-    return state.activeNoteId;
-  });
+
   const isNewNote = useSelector((state: any) => state.otherObj.isNewNote);
   console.log("Notes are", notes);
   if (isFetching) {

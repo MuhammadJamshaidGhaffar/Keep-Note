@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import {
@@ -45,9 +45,11 @@ const Note: React.FC<Required<note>> = ({ id, text, title }) => {
         }}
       >
         {/* <p>{id}</p> */}
-        <p>{title}</p>
+        <p className={styles.title}>{title}</p>
         {text.split("\n").map((line, index) => (
-          <p key={index}>{line}</p>
+          <p className={styles.text} key={index}>
+            {line}
+          </p>
         ))}
       </div>
     </div>

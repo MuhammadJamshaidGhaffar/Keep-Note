@@ -1,14 +1,10 @@
 import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import styles from "./style.module.css";
-import { baseUrl } from "../../utility/globalConstants";
-import {
-  createOrUpdateNoteResponse,
-  note,
-  TYPE_OF_NOTE,
-} from "../../types/note";
+
+import { createOrUpdateNoteResponse, note } from "../../types/note";
 import {
   addNotes,
   setActiveNoteId,
@@ -70,7 +66,7 @@ const NoteEditor: React.FC = () => {
           console.log(err);
         }
     }
-    if (fetchingId || activeNoteId == "-1") return;
+    if (fetchingId || activeNoteId === "-1") return;
     const NoteFromHtml = getNoteFromHtml(noteTitleRef, noteTextRef);
     try {
       const data: createOrUpdateNoteResponse = await updateNote(
